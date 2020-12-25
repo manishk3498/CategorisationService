@@ -1,0 +1,137 @@
+#*
+
+Copyright (c) 2015 Yodlee, Inc. All Rights Reserved.
+
+This software is the confidential and proprietary information of Yodlee, Inc. 
+Use is subject to license terms.
+@author kgopalakrishnan
+
+App-4148: Default Simple Description Rules & Configurability
+The types and sub-types here MIGHT NOT be there in the DB.
+*#
+
+#set( $spend = "Spend" )
+#set( $nonSpend = "Non-Spend" )
+#set( $notAvailable = "N/A" )
+
+#if("$!meerkatTxnType" == "" || "$!meerkatTxnSubType" == "")
+	$spend
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("Bank Adjustment"))
+	#set($nonSpendSubTypes = ["adjustment", "credit adjustment"])
+	#if($nonSpendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$nonSpend
+	#else
+		$notAvailable
+	#end
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("Charges & Fees"))
+	#set($nonSpendSubTypes = ["overdraft charge", "service charge", "returned check charge", "finance charge", "stop payment charge", "debit card fee", "convenience fee", "other charges & fees", "annual fee"])
+	#if($nonSpendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$nonSpend
+	#else
+		$notAvailable
+	#end
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("Interest"))
+	#set($nonSpendSubTypes = ["interest"])
+	#if($nonSpendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$nonSpend
+	#else
+		$notAvailable
+	#end
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("Deposit"))
+	#set($nonSpendSubTypes = ["deposit", "direct deposit", "atm deposit", "investment income or cash", "ssa", "rewards", "check deposit", "mobile deposit", "teller deposit", "tax refund"])
+	#if($nonSpendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$nonSpend
+	#else
+		$notAvailable
+	#end
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("Payment"))
+	#set($spendSubTypes = ["payment", "insurance payment", "utilities payment", "child support", "recurring payment", "electronic payment"])
+	#set($nonSpendSubTypes = ["credit card payment", "ach debit", "tax payment", "payment by check", "loan", "home loan / mortgage", "auto loan", "personal loan", "student loan"])
+	#if($spendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$spend
+	#elseif($nonSpendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$nonSpend
+	#else
+		$notAvailable
+	#end
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("POS Debit"))
+	#set($spendSubTypes = ["pos debit"])
+	#if($spendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$spend
+	#else
+		$notAvailable
+	#end
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("Purchase"))
+	#set($spendSubTypes = ["purchase", "online purchase", "purchase with credit card", "purchase with debit card", "sales tax"])
+	#if($spendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$spend
+	#else
+		$notAvailable
+	#end
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("Refund"))
+	#set($spendSubTypes = ["refund"])
+	#set($nonSpendSubTypes = ["service charge refund", "fee refund", "reimbursement"])
+	#if($spendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$spend
+	#elseif($nonSpendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$nonSpend
+	#else
+		$notAvailable
+	#end
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("Transfer"))
+	#set($nonSpendSubTypes = ["transfer", "balance transfer", "wire transfer", "overdraft protection"])
+	#if($nonSpendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$nonSpend
+	#else
+		$notAvailable
+	#end
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("Withdrawal"))
+	#set($nonSpendSubTypes = ["withdrawal", "atm withdrawal"])
+	#if($nonSpendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$nonSpend
+	#else
+		$notAvailable
+	#end
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("Other Expenses"))
+	#set($nonSpendSubTypes = ["debit"])
+	#if($nonSpendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$nonSpend
+	#else
+		$notAvailable
+	#end
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("Other Income"))
+	#set($nonSpendSubTypes = ["credit"])
+	#if($nonSpendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$nonSpend
+	#else
+		$notAvailable
+	#end
+
+#elseif($meerkatTxnType.trim().equalsIgnoreCase("Cash Advance"))
+	#set($nonSpendSubTypes = ["cash advance"])
+	#if($nonSpendSubTypes.contains($meerkatTxnSubType.trim().toLowerCase()))
+		$nonSpend
+	#else
+		$notAvailable
+	#end
+
+#*
+Finally, when the type is not any of the above, we simply return N/A.
+*#
+
+#else
+	$notAvailable
+#end
+

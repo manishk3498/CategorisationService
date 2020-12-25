@@ -1,0 +1,64 @@
+#*
+
+Copyright (c) 2015 Yodlee, Inc. All Rights Reserved.
+
+This software is the confidential and proprietary information of Yodlee, Inc. 
+Use is subject to license terms.
+@author kgopalakrishnan
+
+App-4148: Default Simple Description Rules & Configurability
+
+The following rules are applicable for finding the simple description for spend transactions.
+Whenever the legacy algorithm needs to be applied, the string "null" is returned to the Velocity
+rule engine.
+*#
+
+#set($returnVal = "")
+#set($nullVar = "null")
+
+#set($address = "")
+
+#if("$!city" != "")
+	#set($address = "${city}")
+#end
+
+#if("$!state" != "")
+	#if("$!address" == "")
+		#set($address = "${state}")
+	#else
+		#set($address = "${address} ${state}")
+	#end
+#end
+
+
+#*
+The logic for constructing the simple description is as follows.
+*#
+
+
+#if("$!merchantName" != "")
+
+	#set($returnVal = "${merchantName}")
+
+	#if("$!address" != "" && $isGeoLocationEnabledInSD)
+		#set($returnVal = "${returnVal} ${address}")
+	#end
+
+	#if("$!meerkatTxnSubType" != "")
+		#if($spendInclusionList.contains($meerkatTxnSubType.trim().toLowerCase()))
+			#if($cobMktTxnSubTypeMapByName.containsKey($meerkatTxnSubType.trim().toLowerCase()))
+
+				#set($cobMktTxnSubType = $cobMktTxnSubTypeMapByName.get($meerkatTxnSubType.trim().toLowerCase()))
+				#set($returnVal = "${returnVal} ${cobMktTxnSubType}")
+
+			#else
+				#set($returnVal = "${returnVal} ${meerkatTxnSubType}")
+			#end
+		#end
+	#end
+
+#else
+	#set($returnVal = "${nullVar}")
+#end
+
+$returnVal

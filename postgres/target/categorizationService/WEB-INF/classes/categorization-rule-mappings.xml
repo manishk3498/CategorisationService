@@ -1,0 +1,19 @@
+<mapping>
+	<class name="com.yodlee.categorization.util.CategorizationRules">
+		<map-to xml="categorisationRule" />
+		<field name="rules" type="com.yodlee.categorization.db.ContainerBaseTypeRule" collection="arraylist">
+			<bind-xml name="rule" node="element" />
+		</field>
+		<field name="precision" type="string">
+			<bind-xml name="precision" node="element" />
+		</field>
+	</class>
+	<class name="com.yodlee.categorization.db.ContainerBaseTypeRule">
+		<field name="container" type="string">
+			<bind-xml name="container" node="element" />
+		</field>
+		<field name="baseType" type="string">
+			<bind-xml name="baseType" node="element" />
+		</field>
+	</class>
+</mapping>

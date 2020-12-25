@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.yodlee.categorization.algo.legacy.LegacyCategorisationServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 29, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.292 s - in com.yodlee.categorization.algo.legacy.LegacyCategorisationServiceImplTest

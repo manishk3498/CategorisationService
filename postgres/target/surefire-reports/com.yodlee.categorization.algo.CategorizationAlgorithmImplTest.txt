@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.yodlee.categorization.algo.CategorizationAlgorithmImplTest
+-------------------------------------------------------------------------------
+Tests run: 23, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.404 s - in com.yodlee.categorization.algo.CategorizationAlgorithmImplTest

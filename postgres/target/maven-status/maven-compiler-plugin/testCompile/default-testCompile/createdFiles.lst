@@ -1,0 +1,7 @@
+com\yodlee\categorization\util\TestConstants.class
+com\yodlee\categorization\algo\tde\MeerkatServiceImplTest.class
+com\yodlee\categorization\algo\legacy\LegacyCategorisationServiceImplTest.class
+com\yodlee\categorization\algo\mcc\MCCCategorizationServiceImplTest.class
+com\yodlee\categorization\algo\CategorizationAlgorithmImplTest.class
+com\yodlee\categorization\util\CommonUtil.class
+com\yodlee\categorization\rest\AbstractTest.class

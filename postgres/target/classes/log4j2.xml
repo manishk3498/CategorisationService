@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+		<!--<Console name="Console1" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{dd MMM yyyy HH:mm:ss z} ^%t%m%n" />
+		</Console>-->
+		
+		<!-- <Syslog name="syslogger" format="RFC5424" host="localhost"
+			port="514" protocol="UDP" appName="categorizationService" includeMDC="true" mdcId="cateSvc-mdcid"
+			facility="SYSLOG" newLine="true" id="cateSvc" immediateFail="true"
+			messageId="cateSvc-msgid" /> filePattern="${sys:ServiceLogFileName}.%d{dd-MMM}.log.gz" -->
+			
+			
+		<RollingFile  name="ServiceLog"
+				fileName="${sys:ServiceLogFileName}"
+				filePattern="${sys:ServiceLogFileName}.%d{yyyyMMddHH-z}">
+			<PatternLayout pattern="%d{dd MMM yyyy HH:mm:ss z} ^%t%m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy  interval="1"/>
+				<SizeBasedTriggeringPolicy size="100MB"/>
+			</Policies>
+			<DefaultRolloverStrategy max="4"/>
+		</RollingFile >
+    </Appenders>
+    
+    <appender name="stdout" class="org.apache.log4j.ConsoleAppender">
+        <param name="threshold" value="debug" />
+        <param name="target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%-5p %d [%t][%F:%L] : %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="debug" />
+            <param name="LevelMax" value="info" />
+        </filter>
+    </appender>
+    
+	<Loggers>
+		<!--<Root level="INFO">
+		<AppenderRef ref="Console1"/>
+		</Root>-->
+		
+	    <logger name="com.yodlee" level="INFO" additivity="false">
+	        <appender-ref ref="stdout"/>
+	    </logger>
+	    <logger name="com.yodlee" level="INFO" additivity="false">
+	        <appender-ref ref="ServiceLog"/>
+	    </logger>
+	    <!-- <logger name="org.apache" level="INFO" additivity="false">
+	        <appender-ref ref="ServiceLog"/>
+	    </logger> -->
+	     
+	    <!--  <logger name="processorAgent" level="FATAL" additivity="false">
+	        <appender-ref ref="ProcessorAgent"/>
+	    </logger> -->
+    </Loggers>
+</Configuration>
+
