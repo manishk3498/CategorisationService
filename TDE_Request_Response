@@ -1,0 +1,100 @@
+
+Request:
+{"cobrand_id":123,
+   "user_id":10490201,
+   "transaction_list":[
+      {
+         "transaction_id":1,
+         "description":"DBT Purchase TARGET XXXXX285 |TARGET XXXXX285",
+         "amount":77.38,
+         "date":"2016-01-2400:00:00.0",
+         "ledger_entry":"debit",
+         "account_type":"Cash Management Account",
+         "is_small_business" : true,
+         "account_classification" : "corporate"
+      }
+   ],
+   "container":"bank",
+   "debug":false,
+   "services_list":[
+      "cnn_merchant",
+      "cnn_subtype",
+      "bloom_filter"
+   ],
+   "cobrand_region":1,
+   "account_classification":"BUSINESS"
+   
+   }
+  
+Response:  
+   {
+    "status": "success",
+    "data": {
+        "cobrand_id": 123,
+        "user_id": 10490201,
+        "transaction_list": [
+            {
+                "transaction_id": 1,
+                "is_small_business": true,
+                "account_classification": "corporate",
+                "country": "US",
+                "source": "OTHER",
+                "chain_name": "",
+                "city": "",
+                "state": "",
+                "source_merchant_id": "",
+                "granular_category": "Department Stores",
+                "confidence_score": "100.0",
+                "cat57": "General Merchandise",
+                "factual_category": "Retail, Department Stores",
+                "periodicity": "",
+                "is_recurring": false,
+                "vendor_name_variation": [
+                    "target",
+                    "b7",
+                    "87"
+                ],
+                "txn_type": "Purchase",
+                "txn_sub_type": "Purchase",
+                "intermediary": "",
+                "is_physical_merchant": true,
+                "txn_merchant_type": "Others",
+                "verified_in_agg": false,
+                "store_id": "",
+                "street": "",
+                "latitude": "",
+                "longitude": "",
+                "email": "",
+                "fax_number": "",
+                "phone_number": "",
+                "postal_code": "",
+                "website": "",
+                "pos_info": {},
+                "neighbourhood": "",
+                "category_id": "",
+                "hierarchy_category": "Retail, Department Stores",
+                "checksum": "fT1kYV2c624232cdd221771294dfbb310aca000a0df6ac8b66b696d90ef06fde",
+                "match_found": true,
+                "merchant_name": "Target",
+                "use_legacy_merchant": false,
+                "category_labels": [
+                    "Electronics/General Merchandise"
+                ],
+                "mode_of_payment": "",
+                "pii_info": "",
+                "logo_endpoint": "https://yodlee-1.hs.llnwd.net/v1/MERCHANTLOGO/target.svg"
+            }
+        ],
+        "container": "bank",
+        "debug": false,
+        "services_list": [
+            "cnn_merchant",
+            "cnn_subtype",
+            "bloom_filter"
+        ],
+        "cobrand_region": 1,
+        "account_classification": "BUSINESS",
+        "model_date": "20200815",
+        "version": "2.2.31"
+    }
+}
